@@ -1,5 +1,5 @@
 <?php
-
+//faltan importaciones de los controladores una vez creados
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,25 +43,37 @@ Route::group([
 ], function() {
     Route::post('/create', [GamesController::class, 'createParties']);
     Route::get('/search', [GamesController::class, 'searchParties']);
-    Route::put('/update/{gameId}', [GamesController::class, 'update']);
-    Route::delete('/delete/{gameId}',[GamesController::class, 'delete']);
+    Route::put('/update/{gameId}', [GamesController::class, 'update'], function($gameId){
+        return 'Games'.$gameId;
+    });
+    Route::delete('/delete/{gameId}',[GamesController::class, 'delete'], function($gameId){
+        return 'Games'.$gameId;
+    });
 });
 
 //CRUD PARTIES
 Route::group([
 'middleware' => ['auth: sanctum']
 ], function(){
-    Route::post('/join/{gameId}', [PartiesController::class,'join']);
-    Route::post('/leave/{gameId}', [PartiesContoller::class, 'leave']);
+    Route::post('/join/{gameId}', [PartiesController::class,'join'], function($gameId){
+        return 'Games'.$gameId;
+    });
+    Route::post('/leave/{gameId}', [PartiesContoller::class, 'leave'], function($gameId){
+        return 'Games'.$gameId;
+    });
 });
 
 //CRUD MESSAGE
 Route::group([
     'middleware' => ['auth: sanctum']
 ], function(){
-    Route::post('/send-message/{gameId}', [MessageContoller::class, 'send-message']);
+    Route::post('/send-message/{gameId}', [MessageContoller::class, 'send-message'], function($gameId){
+        return 'Games'.$gameId;
+    });
     //visualizar todos los mensajes en una partida
-    Route::get('/view-message/{gameId}',[MessageContoller::class,'allMessageParties']);
+    Route::get('/view-message/{gameId}',[MessageContoller::class,'allMessageParties'], function($gameId){
+        return 'Games'.$gameId;
+    });
 });
 
 
