@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('party_rooms', function (Blueprint $table) {
             $table->id();
-            // id del creador o del actual administrador
-            $table->unsignedBigInteger('admin_id');
+            // // id del creador o del actual administrador
+            // $table->unsignedBigInteger('admin_id');
             $table->string('room_name', 100)->unique();
             $table->string('img_url', 750);
             $table->enum('visibility', ['public', 'private'])->default('public');
             // foreign keys
-            // $table->unsignedBigInteger('admin_id');
-            // $table->foreign('admin_id')->references('id')->on('users');
+            $table->unsignedBigInteger('admin_id');
+            $table->foreign('admin_id')->references('id')->on('users');
             $table->unsignedBigInteger('party_id');
             $table->unsignedBigInteger('videogame_id');
             $table->foreign('videogame_id')->references('id')->on('videogames');
