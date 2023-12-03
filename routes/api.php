@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('/api', function (Request $request) {
+    return response()->json(
+        [
+            "success" => true,
+            "message" => "Healthcheck ok"
+        ],
+        Response::HTTP_OK //code status 200
+    );
+});
 
 //CRUD USERS
 
