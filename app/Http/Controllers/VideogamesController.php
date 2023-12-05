@@ -43,4 +43,42 @@ class VideogamesController extends Controller
     
     }
 }
+    public function getGameById(Request $request, $id)
+{
+    try {
+        $videogame=Videogames::query()->fing($id);
+
+        if(!$videogame){
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Videogame doesn't exist"
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        
+        return response()->json(
+            [
+                'success' => true,
+                'message' => "Videogame obtained",
+                'data' => $videogame
+            ],
+            Response::HTTP_OK
+        );
+
+    }catch (\Throwable $th) {
+        Log::error($th->getMessage());
+        
+        return response()->json(
+            [
+                'success' => false,
+                'message' => 'Error founding game'
+            ],
+            Response::HTTP_INTERNAL_SERVER_ERROR
+        );
+    }
 }
+    
+}
+
