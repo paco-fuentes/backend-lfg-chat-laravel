@@ -21,7 +21,7 @@ return new class extends Migration
             // foreign keys
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('users');
-            $table->unsignedBigInteger('party_id');
+            // $table->unsignedBigInteger('party_id');
             $table->unsignedBigInteger('videogame_id');
             $table->foreign('videogame_id')->references('id')->on('videogames');
 
