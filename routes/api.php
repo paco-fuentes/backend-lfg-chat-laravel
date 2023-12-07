@@ -1,5 +1,7 @@
 <?php
 //faltan importaciones de los controladores una vez creados
+
+use App\Http\Controllers\VideogamesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,12 +39,12 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-//CRUD GAMES
+//CRUD VIDEOGAMES
 Route::group([
 'middleware' => ['auth: sanctum']    
 ], function() {
-    Route::post('/create', [GamesController::class, 'createParties']);
-    Route::get('/search', [GamesController::class, 'searchParties']);
+    Route::post('/create', [VideogamesController::class, 'createParties']);
+    Route::get('/videogame', [VideogamesController::class, 'searchParties']);
     Route::put('/update/{gameId}', [GamesController::class, 'update'], function($gameId){
         return 'Games'.$gameId;
     });
