@@ -40,18 +40,18 @@ Route::group([
 });
 
 //CRUD VIDEOGAMES
-Route::group([
-'middleware' => ['auth: sanctum']    
-], function() {
+// Route::group([
+// 'middleware' => ['auth: sanctum']    ], function() {
     Route::post('/create', [VideogamesController::class, 'createParties']);
-    Route::get('/videogame', [VideogamesController::class, 'searchParties']);
+    Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
     Route::put('/update/{gameId}', [GamesController::class, 'update'], function($gameId){
         return 'Games'.$gameId;
     });
     Route::delete('/delete/{gameId}',[GamesController::class, 'delete'], function($gameId){
         return 'Games'.$gameId;
     });
-});
+// }
+// );
 
 //CRUD PARTIES
 Route::group([
@@ -79,6 +79,6 @@ Route::group([
 });
 
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-  //  return $request->user();
-//});
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+   return $request->user();
+});
