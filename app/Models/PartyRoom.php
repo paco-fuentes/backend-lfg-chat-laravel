@@ -18,7 +18,7 @@ class PartyRoom extends Model
         'is_active',
     ];
 
-    /*public function user(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -36,6 +36,6 @@ class PartyRoom extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(Messages::class);
-    }*/
+    }
 
 }
