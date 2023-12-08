@@ -19,7 +19,7 @@ class VideogamesFactory extends Factory
             'title' => $this->faker->name,
             'year' => $this->faker->year,
             'img_url' => $this->faker->imageUrl,
-            'genre' => $this->faker->randomElement(['unknown', 'Action', 'Adventure', 'RPG', 'FPS']),
+            'genre' => $this->faker->randomElement(['Action', 'Adventure', 'RPG', 'FPS', 'Platformer']),
             'is_active' => $this->faker->boolean,
             //
         ];

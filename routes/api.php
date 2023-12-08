@@ -30,55 +30,18 @@ Route::get('/api', function (Request $request) {
 //CRUD USERS
 
 // AUTH
-Route::group([
-'middleware' =>['auth: sanctum']
-], function() {
+// Route::group([
+// 'middleware' =>['auth: sanctum']
+// ], 
+// function() {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
-});
-
-//CRUD VIDEOGAMES
-// Route::group([
-// 'middleware' => ['auth: sanctum']    ], function() {
-    Route::post('/create', [VideogamesController::class, 'createParties']);
-    Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
-    Route::put('/update/{gameId}', [GamesController::class, 'update'], function($gameId){
-        return 'Games'.$gameId;
-    });
-    Route::delete('/delete/{gameId}',[GamesController::class, 'delete'], function($gameId){
-        return 'Games'.$gameId;
-    });
 // }
 // );
 
-//CRUD PARTIES
-Route::group([
-'middleware' => ['auth: sanctum']
-], function(){
-    Route::post('/join/{gameId}', [PartiesController::class,'join'], function($gameId){
-        return 'Games'.$gameId;
-    });
-    Route::post('/leave/{gameId}', [PartiesContoller::class, 'leave'], function($gameId){
-        return 'Games'.$gameId;
-    });
-});
+//CRUD VIDEOGAMES
 
-//CRUD MESSAGE
-Route::group([
-    'middleware' => ['auth: sanctum']
-], function(){
-    Route::post('/send-message/{gameId}', [MessageContoller::class, 'send-message'], function($gameId){
-        return 'Games'.$gameId;
-    });
-    //visualizar todos los mensajes en una partida
-    Route::get('/view-message/{gameId}',[MessageContoller::class,'allMessageParties'], function($gameId){
-        return 'Games'.$gameId;
-    });
-});
+    Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
 
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-   return $request->user();
-});
