@@ -1,6 +1,7 @@
 <?php
 //faltan importaciones de los controladores una vez creados
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideogamesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,7 @@ Route::get('/', function (Request $request) {
 // 'middleware' =>['auth: sanctum']
 // ], 
 // function() {
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [UserController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
