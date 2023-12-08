@@ -60,9 +60,65 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             "username" => "required|min:3|max:70",
             "email" => "required|email",
-            "password" => "required|min:8|max:200|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
+            "password" => "required|min:8|max:80|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
 
         ]);
         return $validator;
+    }
+
+    public function login(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), 
+            [
+                "email" => "required|email",
+                "password" => "required|min:8|max:80|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Error login",
+                        "error" => $validator->errors()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
+            $email = $request->input("email");
+            $password = $request->input("password");
+            $user = User::query()->where("email",$email)->first();
+
+            if(!$user || !Hash::check($password, $user->password)) {
+                return response() -> json(
+                    [
+                        "success" => false,
+                        "message" => "Email or password incorrect"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+            $token = $user->createToken("apiToken")->plainTextToken;
+
+            return response ()-> json(
+                [
+                    "success" => true,
+                    "message" => "Login successfully",
+                    "token" => $token,
+                    "data" => $user,
+                ]
+                );
+        } catch (\Throwable $th) {
+            log::error($th->getMessage());
+
+            return response()->json(
+            [
+                "success" => false,
+                "message" => "Error login",
+
+            ],
+            Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }
