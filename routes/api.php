@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,13 +32,14 @@ Route::get('/', function (Request $request) {
 //CRUD USERS
 
 // AUTH
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+
 // Route::group([
 // 'middleware' =>['auth: sanctum']
 // ], 
 // function() {
-    Route::post('/register', [UserController::class, 'register']);
-    Route::post('/login', [UserController::class, 'login']);
-    Route::get('/profile', [UserController::class, 'profile']);
+    Route::middleware("auth:sanctum")->get('/profile', [UserController::class, 'profile']);
     Route::post('/logout', [UserController::class, 'logout']);
 // }
 // );
