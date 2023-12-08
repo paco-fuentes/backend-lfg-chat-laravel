@@ -36,9 +36,9 @@ Route::get('/', function (Request $request) {
 // ], 
 // function() {
     Route::post('/register', [UserController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/profile', [AuthController::class, 'profile']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/login', [UserController::class, 'login']);
+    Route::get('/profile', [UserController::class, 'profile']);
+    Route::post('/logout', [UserController::class, 'logout']);
 // }
 // );
 
