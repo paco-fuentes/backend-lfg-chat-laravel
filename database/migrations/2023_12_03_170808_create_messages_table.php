@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('message', 300);
+            $table->string('message', 700);
             // foreign keys
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
