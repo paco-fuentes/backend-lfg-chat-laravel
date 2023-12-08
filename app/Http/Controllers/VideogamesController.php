@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Videogames;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -46,7 +47,7 @@ class VideogamesController extends Controller
     public function getGameById(Request $request, $id)
 {
     try {
-        $videogame=Videogames::query()->fing($id);
+        $videogame=Videogames::query()->find($id);
 
         if(!$videogame){
             return response()->json(

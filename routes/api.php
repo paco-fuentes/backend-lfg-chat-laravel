@@ -44,4 +44,5 @@ Route::get('/', function (Request $request) {
 //CRUD VIDEOGAMES
 
     Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
+    Route::get('/videogames/{id}', [VideogamesController::class, 'getGameById']);
 
