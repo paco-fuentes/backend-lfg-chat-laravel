@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 |
 */
 //RUTA DE COMPROBACION
-Route::get('/api', function (Request $request) {
+Route::get('/', function (Request $request) {
     return response()->json(
         [
             "success" => true,
