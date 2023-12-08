@@ -16,7 +16,6 @@ return new class extends Migration
             // // id del creador o del actual administrador
             // $table->unsignedBigInteger('admin_id');
             $table->string('room_name', 100)->unique();
-            $table->string('img_url', 750);
             $table->enum('visibility', ['public', 'private'])->default('public');
             // foreign keys
             $table->unsignedBigInteger('admin_id');

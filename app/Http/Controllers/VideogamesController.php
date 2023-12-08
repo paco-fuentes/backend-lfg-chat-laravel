@@ -47,7 +47,7 @@ class VideogamesController extends Controller
     public function getGameById(Request $request, $id)
 {
     try {
-        $videogame=Videogames::query()->fing($id);
+        $videogame=Videogames::query()->find($id);
 
         if(!$videogame){
             return response()->json(
