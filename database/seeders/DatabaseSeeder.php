@@ -15,14 +15,23 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
         // \App\Models\Videogames::factory(10)->create();
 
+        // admin
+        \App\Models\User::factory()->create([
+            'username' => 'admin',
+            'email' => 'admin@admin.com',
+            'password'=>'Password1234&',
+            'role'=>'admin'
+        ]);
+
+        // videogames
         \App\Models\Videogames::factory()->create([
             'title' => 'Super Mario',
-            'year' => '1988',
-            'genre'=>'Action'
+            'year' => '1989',
+            'genre'=>'Platformer'
         ]);
         \App\Models\Videogames::factory()->create([
             'title' => 'Zelda',
-            'year' => '1999',
+            'year' => '1993',
             'genre'=>'Adventure'
         ]);
         \App\Models\Videogames::factory()->create([
@@ -32,7 +41,7 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Videogames::factory()->create([
             'title' => 'Doom',
-            'year' => '2003',
+            'year' => '1993',
             'genre'=>'FPS'
         ]);
     }
