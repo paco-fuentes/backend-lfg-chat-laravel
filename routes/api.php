@@ -2,6 +2,7 @@
 //faltan importaciones de los controladores una vez creados
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PartyMemberController;
 use App\Http\Controllers\PartyRoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideogamesController;
@@ -54,3 +55,9 @@ Route::middleware("auth:sanctum", "admin")->get('/users', [AdminController::clas
 
 // PARTY ROOMS
 Route::middleware("auth:sanctum")->post('/room', [PartyRoomController::class, 'createPartyRoom']);
+Route::middleware("auth:sanctum")->get('/partygames/{videogame_id}', [PartyRoomController::class,'getPartyByVideogameId']);
+
+
+// PARTY MEMBERS
+Route::middleware("auth:sanctum")->post('/partymembers/join/{party_id}', [PartyMemberController::class, 'joinParty']);
+Route::middleware("auth:sanctum")->post('/partymembers/leave/{party_id}', [PartyMemberController::class, 'leaveParty']);

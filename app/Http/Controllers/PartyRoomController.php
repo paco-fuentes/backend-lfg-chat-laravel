@@ -69,4 +69,28 @@ class PartyRoomController extends Controller
             );
         }
     }
+
+    public function getPartyByVideogameId($videogame_id)
+    {
+        try {
+            $partyRooms = PartyRoom::where('videogame_id', $videogame_id)->get();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "PartyRooms retrieved successfully",
+                    "data" => $partyRooms
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error retrieving partyrooms",
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }
