@@ -157,7 +157,7 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteVideogame(Request $request, $is)
+    public function deleteVideogame(Request $request, $id)
     {
         try {
             $user = auth()->user();
