@@ -1,8 +1,10 @@
 <?php
 //faltan importaciones de los controladores una vez creados
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideogamesController;
+use App\Http\Middleware\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,4 +52,5 @@ Route::post('/login', [UserController::class, 'login']);
 
     Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
     Route::get('/videogames/{id}', [VideogamesController::class, 'getGameById']);
+    Route::middleware("auth:sanctum","Admin")->post('/videogames/{id}', [AdminController::class, 'updateVideogame']);
 
