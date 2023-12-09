@@ -10,6 +10,8 @@ class PartyMember extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
+        'party_id',
         'is_active'
     ];
 
@@ -22,6 +24,4 @@ class PartyMember extends Model
     {
         return $this->belongsTo(PartyRooms::class);
     }
-
-
 }
