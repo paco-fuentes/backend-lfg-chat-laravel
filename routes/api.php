@@ -55,4 +55,5 @@ Route::post('/login', [UserController::class, 'login']);
     Route::middleware("auth:sanctum","admin")->put('/videogames/{id}', [AdminController::class, 'updateVideogame']);
     Route::middleware("auth:sanctum","admin")->post('/videogame', [AdminController::class, 'createVideogame']);
     Route::middleware("auth:sanctum","admin")->delete('/videogame/{id}', [AdminController::class, 'deleteVideogame']);
+    Route::middleware("auth:sanctum","admin")->get('/users', [AdminController::class, 'getAllUsers']);
 
