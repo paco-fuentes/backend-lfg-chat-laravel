@@ -33,8 +33,8 @@ class AdminController extends Controller
             $genre = $request->input("genre");
             $is_active = $request->input("is_active");
             $validator = Validator::make($request->all(), [
-                "title" => "required|string|max:100|unique:videogames,title," . $id,
-                "year" => "required|string|max:10",
+                "title" => "string|max:100|unique:videogames,title," . $id,
+                "year" => "string|max:10",
                 "img_url" => "string|max:750",
                 "genre" => "string|in:Unknown,Action,Adventure,RPG,FPS,Platformer",
                 "is_active" => "boolean"
