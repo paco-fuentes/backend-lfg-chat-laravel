@@ -69,13 +69,15 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        try{
-            $validator = Validator::make($request->all(), 
-            [
-                "email" => "required|email",
-                "password" => "required|min:8|max:80|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
-            ]);
-            
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    "email" => "required|email",
+                    "password" => "required|min:8|max:80|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
+                ]
+            );
+
             if ($validator->fails()) {
                 return response()->json(
                     [
@@ -88,10 +90,10 @@ class UserController extends Controller
             }
             $email = $request->input("email");
             $password = $request->input("password");
-            $user = User::query()->where("email",$email)->first();
+            $user = User::query()->where("email", $email)->first();
 
-            if(!$user || !Hash::check($password, $user->password)) {
-                return response() -> json(
+            if (!$user || !Hash::check($password, $user->password)) {
+                return response()->json(
                     [
                         "success" => false,
                         "message" => "Email or password incorrect"
@@ -101,24 +103,24 @@ class UserController extends Controller
             }
             $token = $user->createToken("apiToken")->plainTextToken;
 
-            return response ()-> json(
+            return response()->json(
                 [
                     "success" => true,
                     "message" => "Login successfully",
                     "token" => $token,
                     "data" => $user,
                 ]
-                );
+            );
         } catch (\Throwable $th) {
             log::error($th->getMessage());
 
             return response()->json(
-            [
-                "success" => false,
-                "message" => "Error login",
+                [
+                    "success" => false,
+                    "message" => "Error login",
 
-            ],
-            Response::HTTP_INTERNAL_SERVER_ERROR
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }
@@ -126,9 +128,9 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         try {
-            $user = auth() -> user();
+            $user = auth()->user();
 
-            return response()-> json(
+            return response()->json(
                 [
                     "success" => true,
                     "message" => "User profile",
@@ -139,7 +141,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            return response()-> json(
+            return response()->json(
                 [
                     "success" => false,
                     "message" => "Error getting profile",
@@ -156,7 +158,7 @@ class UserController extends Controller
             $token = PersonalAccessToken::findToken($accesToken);
             $token->delete();
 
-            return response()-> json(
+            return response()->json(
                 [
                     "success" => true,
                     "message" => "User logout",
@@ -166,7 +168,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            return response()-> json(
+            return response()->json(
                 [
                     "success" => false,
                     "message" => "Error logout",
@@ -215,6 +217,32 @@ class UserController extends Controller
                     "message" => "Error updating user profile"
                 ],
 
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function deleteUser()
+    {
+        try {
+            $token = auth()->user();
+            User::destroy($token->id);
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "User deleted",
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting user",
+                ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
