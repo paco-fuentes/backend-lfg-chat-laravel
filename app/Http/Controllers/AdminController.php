@@ -90,4 +90,70 @@ class AdminController extends Controller
             );
         }
     }
+
+    public function createVideogame(Request $request)
+    {
+        try {
+            $user = auth()->user();
+
+            if ($user->role != "admin") {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You are not admin"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+
+            $validator = Validator::make($request->all(), [
+                "title" => "required|string|max:100|unique:videogames",
+                "year" => "required|string|max:10",
+                "img_url" => "required|string|max:750",
+                "genre" => "string|in:Unknown,Action,Adventure,RPG,FPS,Platformer",
+                "is_active" => "boolean"
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Error creating videogame",
+                        "errors" => $validator->errors()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+            }
+
+            $newVideogame = Videogames::create (
+                [
+                    "title" => $request->input("title"),
+                    "year" => $request->input("year"),
+                    "img_url" => $request->input("img_url"),
+                    "genre" => $request->input("genre"),
+                    "is_active" => $request->input("is_active"),
+                ]
+                );
+
+                return response()->json(
+                    [
+                        "success" => true,
+                        "message" => "Videogame created successfully",
+                        "data" => $newVideogame
+                    ],
+                    Response::HTTP_CREATED
+                );
+    } catch (\Throwable $th) {
+        Log::error($th->getMessage());
+
+        return response()->json(
+            [
+                "success" => false,
+                "message" => "Error creating videogame",
+
+            ],
+            Response::HTTP_INTERNAL_SERVER_ERROR
+        );
+    }
+}
 }
