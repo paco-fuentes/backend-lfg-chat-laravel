@@ -38,20 +38,20 @@ class User extends Authenticatable
     ];
 
     
-//     public function party_rooms():HasMany
-//     {
-//         return $this->hasMany(PartyRooms::class);
-//     }
-//     public function party_members():HasMany
-//     {
-//         return $this->hasMany(PartyMembers::class);
-//     }
-//     public function messages():HasMany
-//     {
-//         return $this->hasMany(Messages::class);
-//     }
-//     public function messageRoom(): BelongsToMany
-//     {
-//         return $this->belongsToMany(party_rooms::class, "messages");
-//     }
+    public function party_rooms():HasMany
+    {
+        return $this->hasMany(PartyRooms::class);
+    }
+    public function party_members():HasMany
+    {
+        return $this->hasMany(PartyMembers::class);
+    }
+    public function messages():HasMany
+    {
+        return $this->hasMany(Messages::class);
+    }
+    public function messageRoom(): BelongsToMany
+    {
+        return $this->belongsToMany(party_rooms::class, "messages");
+    }
 }
