@@ -125,7 +125,7 @@ class AdminController extends Controller
                 );
             }
 
-            $newVideogame = Videogames::create (
+            $newVideogame = Videogames::create(
                 [
                     "title" => $request->input("title"),
                     "year" => $request->input("year"),
@@ -133,27 +133,77 @@ class AdminController extends Controller
                     "genre" => $request->input("genre"),
                     "is_active" => $request->input("is_active"),
                 ]
+            );
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Videogame created successfully",
+                    "data" => $newVideogame
+                ],
+                Response::HTTP_CREATED
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error creating videogame",
+
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function deleteVideogame(Request $request, $is)
+    {
+        try {
+            $user = auth()->user();
+
+            if ($user->role != "admin") {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You are not admin"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
                 );
+            }
+
+            $videogame = Videogames::query()->find($id);
+
+            if ($videogame) {
+                Videogames::destroy($id);
 
                 return response()->json(
                     [
                         "success" => true,
-                        "message" => "Videogame created successfully",
-                        "data" => $newVideogame
+                        "message" => "Videogame deleted successfully"
                     ],
-                    Response::HTTP_CREATED
+                    Response::HTTP_OK
                 );
-    } catch (\Throwable $th) {
-        Log::error($th->getMessage());
+            }
 
-        return response()->json(
-            [
-                "success" => false,
-                "message" => "Error creating videogame",
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Videogame not found"
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
 
-            ],
-            Response::HTTP_INTERNAL_SERVER_ERROR
-        );
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting videogame",
+
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
-}
 }
