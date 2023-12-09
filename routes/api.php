@@ -2,6 +2,7 @@
 //faltan importaciones de los controladores una vez creados
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PartyRoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideogamesController;
 use App\Http\Middleware\Admin;
@@ -37,23 +38,19 @@ Route::get('/', function (Request $request) {
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
-// Route::group([
-// 'middleware' =>['auth: sanctum']
-// ], 
-// function() {
-    Route::middleware("auth:sanctum")->get('/profile', [UserController::class, 'profile']);
-    Route::middleware("auth:sanctum")->post('/logout', [UserController::class, 'logout']);
-    Route::middleware("auth:sanctum")->put('/update', [UserController::class, 'updateProfile']);
-    Route::middleware("auth:sanctum")->delete('/user', [UserController::class, 'deleteUser']);
-// }
-// );
+Route::middleware("auth:sanctum")->get('/profile', [UserController::class, 'profile']);
+Route::middleware("auth:sanctum")->post('/logout', [UserController::class, 'logout']);
+Route::middleware("auth:sanctum")->put('/update', [UserController::class, 'updateProfile']);
+Route::middleware("auth:sanctum")->delete('/user', [UserController::class, 'deleteUser']);
+
 
 //CRUD VIDEOGAMES
+Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
+Route::get('/videogames/{id}', [VideogamesController::class, 'getGameById']);
+Route::middleware("auth:sanctum", "admin")->put('/videogames/{id}', [AdminController::class, 'updateVideogame']);
+Route::middleware("auth:sanctum", "admin")->post('/videogame', [AdminController::class, 'createVideogame']);
+Route::middleware("auth:sanctum", "admin")->delete('/videogame/{id}', [AdminController::class, 'deleteVideogame']);
+Route::middleware("auth:sanctum", "admin")->get('/users', [AdminController::class, 'getAllUsers']);
 
-    Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
-    Route::get('/videogames/{id}', [VideogamesController::class, 'getGameById']);
-    Route::middleware("auth:sanctum","admin")->put('/videogames/{id}', [AdminController::class, 'updateVideogame']);
-    Route::middleware("auth:sanctum","admin")->post('/videogame', [AdminController::class, 'createVideogame']);
-    Route::middleware("auth:sanctum","admin")->delete('/videogame/{id}', [AdminController::class, 'deleteVideogame']);
-    Route::middleware("auth:sanctum","admin")->get('/users', [AdminController::class, 'getAllUsers']);
-
+// PARTY ROOMS
+Route::middleware("auth:sanctum")->post('/room', [PartyRoomController::class, 'createPartyRoom']);
