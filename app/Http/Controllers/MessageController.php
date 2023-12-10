@@ -100,4 +100,43 @@ class MessageController extends Controller
             );
         }
     }
+
+    public function deleteMessage(Request $request)
+    {
+        try {
+            $user = auth()->user();
+            $partyRoom_id = $request->input('party_id');
+            $message_id = $request->input('message_id');
+
+            $partyMember = PartyMember::query()->where("user_id", $user->id)->where("party_id", $partyRoom_id)->where("message_id", $message_id)->first();
+
+            if (!$partyMember) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You are not a member of this chat"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+
+            Message::destroy($message_id);
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Message deleted"
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting message"
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }
