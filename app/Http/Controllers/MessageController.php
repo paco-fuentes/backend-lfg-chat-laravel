@@ -56,9 +56,9 @@ class MessageController extends Controller
     public function chatRoom(Request $request)
     {
         try {
-            $user = auth()->user();
+            $user = auth()->user()->id;
             $partyRoom_id = $request->input('party_id');
-            $partyMember = PartyMember::query()->where("user_id", $user->id)->where("party_id", $partyRoom_id)->first();
+            $partyMember = PartyMember::query()->where("user_id", $user)->where("party_id", $partyRoom_id)->first();
 
             if (!$partyMember) {
                 return response()->json(

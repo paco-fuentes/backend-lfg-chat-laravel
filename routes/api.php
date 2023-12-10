@@ -68,3 +68,4 @@ Route::middleware("auth:sanctum")->post('/partymembers/leave/{party_id}', [Party
 
 // MESSAGES
 Route::middleware("auth:sanctum")->post('/message', [MessageController::class, 'createMessage']);
+Route::middleware("auth:sanctum")->get('/message', [MessageController::class, 'chatRoom']);
