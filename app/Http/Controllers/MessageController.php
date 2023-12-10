@@ -101,26 +101,18 @@ class MessageController extends Controller
         }
     }
 
-    public function deleteMessage(Request $request)
+    public function deleteMessage(Request $request, $id)
     {
         try {
-            $user = auth()->user();
-            $partyRoom_id = $request->input('party_id');
-            $message_id = $request->input('message_id');
+            $userId = auth()->user()->id;
+         
+            $message = Message::query()
+                ->where('id', $id)
+                ->where('user_id', $userId)
+                ->first();
 
-            $partyMember = PartyMember::query()->where("user_id", $user->id)->where("party_id", $partyRoom_id)->where("message_id", $message_id)->first();
+            $message->delete();
 
-            if (!$partyMember) {
-                return response()->json(
-                    [
-                        "success" => false,
-                        "message" => "You are not a member of this chat"
-                    ],
-                    Response::HTTP_UNAUTHORIZED
-                );
-            }
-
-            Message::destroy($message_id);
             return response()->json(
                 [
                     "success" => true,
@@ -128,12 +120,22 @@ class MessageController extends Controller
                 ],
                 Response::HTTP_OK
             );
-        } catch (\Throwable $th) {
+
+        } catch (\Throwable $e) {
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Message not deleted"
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        
+} catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Error deleting message"
+                    "message" => "Message not deleted"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
