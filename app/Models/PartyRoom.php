@@ -33,7 +33,7 @@ class PartyRoom extends Model
 
     public function party_members(): HasMany
     {
-        return $this->hasMany(PartyMembers::class);
+        return $this->hasMany(PartyMember::class);
     }
 
     public function messages(): HasMany
