@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PartyRoom;
 use App\Models\User;
 use App\Models\Videogames;
 use Illuminate\Http\Request;
@@ -251,6 +252,56 @@ class AdminController extends Controller
                     "success" => false,
                     "message" => "Error getting users",
                     "data" => $users
+
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function getAllPartyRoom(Request $request)
+    {
+        try {
+            $user = auth()->user();
+
+            if ($user->role != "admin") {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You are not admin"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+
+            $partyRooms = PartyRoom::query()->get();
+
+            if ($partyRooms->isEmpty()) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "No party rooms found"
+                    ],
+                    Response::HTTP_NO_CONTENT
+                );
+            }
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Party rooms found",
+                    "data" => $partyRooms
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error getting party rooms",
+                    "data" => $partyRooms
 
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
