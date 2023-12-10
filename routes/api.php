@@ -56,6 +56,7 @@ Route::middleware("auth:sanctum", "admin")->get('/users', [AdminController::clas
 // PARTY ROOMS
 Route::middleware("auth:sanctum")->post('/room', [PartyRoomController::class, 'createPartyRoom']);
 Route::middleware("auth:sanctum")->get('/partygames/{videogame_id}', [PartyRoomController::class,'getPartyByVideogameId']);
+Route::middleware("auth:sanctum")->delete('/partygames/{id}', [PartyRoomController::class,'deletePartyRoom']);
 Route::middleware("auth:sanctum", "admin")->get('/partyrooms', [AdminController::class,'getAllPartyRoom']);
 
 

@@ -16,7 +16,7 @@ class PartyRoomController extends Controller
     public function createPartyRoom(Request $request)
     {
         try {
-            $user = Auth::user();
+            $user = auth::user();
             if (!$user) {
                 return response()->json(
                     [
@@ -95,53 +95,33 @@ class PartyRoomController extends Controller
         }
     }
 
-    public function deletePartyRoom(Request $request, $id)
+    public function deletePartyMember(Request $request, $id)
     {
         try {
-            $user = auth()->user();
-            $partyRoom = PartyRoom::query()->find($id);
-            $userPartyRoom = PartyMember::query()->where("party_id", $id)->first();
+           $userId = auth()->user()->id;
 
-            if (!$partyRoom) {
-                return response()->json(
-                    [
-                        "success" => false,
-                        "message" => "PartyRoom not found"
-                    ],
-                    Response::HTTP_NOT_FOUND
-                );
-            }
+           $partyMember = PartyMember::query()
+           ->where("id", $id)
+           ->where("user_id", $userId)
+           ->first();
 
-            if ($userPartyRoom->user_id === $user->id) {
-                $partyRoom->party_memberManyToMany()->detach($user->id);
+           $partyMember->delete();
 
-                PartyRoom::destroy($id);
-
-                return response()->json(
-                    [
-                        "success" => true,
-                        "message" => "PartyRoom deleted successfully"
-                    ],
-                    Response::HTTP_OK
-                );
-            } else {
-                return response()->json(
-                    [
-                        "success" => false,
-                        "message" => "You are not admin to this partyroom"
-                    ],
-                    Response::HTTP_UNAUTHORIZED
-                );
-            }
-        } catch (\Throwable $th) {
+           return response()->json(
+            [
+                "success" => true,
+                "message" => "PartyMember deleted successfully",
+                "data" => $partyMember
+            ],
+            Response::HTTP_OK
+        );
+} catch (\Throwable $th) {
             Log::error($th->getMessage());
 
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Error deleting partyroom",
-                    "data" => $userPartyRoom
-
+                    "message" => "Error deleting PartyMember",
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

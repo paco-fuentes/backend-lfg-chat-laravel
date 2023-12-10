@@ -14,7 +14,7 @@ class PartyMemberController extends Controller
     public function joinParty(Request $request, $party_id)
     {
         try {
-            $user = Auth::user();
+            $user = auth::user();
             if (!$user) {
                 return response()->json(
                     [
@@ -64,7 +64,7 @@ class PartyMemberController extends Controller
     public function leaveParty(Request $request, $party_id)
     {
         try {
-            $user = Auth::user();
+            $user = auth::user();
             if (!$user) {
                 return response()->json(
                     [
