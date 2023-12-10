@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Message extends Model
 {
     use HasFactory;
-     protected $fillable = [
+    protected $fillable = [
         'message',
         'user_id',
         'party_id',
@@ -25,5 +25,4 @@ class Message extends Model
     {
         return $this->hasMany(PartyRooms::class);
     }
-
 }

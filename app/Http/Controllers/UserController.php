@@ -221,32 +221,4 @@ class UserController extends Controller
             );
         }
     }
-
-    // [2023-12-10 11:49:36] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`lfg_chat`.`messages`, CONSTRAINT `messages_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)) (Connection: mysql, SQL: delete from `users` where `id` = 12)
-    // habría que modificar bastante codigo y no es requisito que un usuario se borre a sí mismo
-    // public function deleteUser()
-    // {
-    //     try {
-    //         $token = auth()->user();
-    //         User::destroy($token->id);
-
-    //         return response()->json(
-    //             [
-    //                 "success" => true,
-    //                 "message" => "User deleted",
-    //             ],
-    //             Response::HTTP_OK
-    //         );
-    //     } catch (\Throwable $th) {
-    //         Log::error($th->getMessage());
-
-    //         return response()->json(
-    //             [
-    //                 "success" => false,
-    //                 "message" => "Error deleting user",
-    //             ],
-    //             Response::HTTP_INTERNAL_SERVER_ERROR
-    //         );
-    //     }
-    // }
 }

@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('year', 10);
             $table->string('img_url', 750)->nullable();
             $table->enum('genre', ['Unknown', 'Action', 'Adventure', 'RPG', 'FPS', 'Platformer'])->default('Unknown');
-            
             $table->boolean('is_active')->default(true);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
-    }  
+    }
 
     /**
      * Reverse the migrations.

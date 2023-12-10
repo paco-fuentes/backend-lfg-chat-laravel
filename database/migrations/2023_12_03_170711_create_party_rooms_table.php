@@ -13,16 +13,12 @@ return new class extends Migration
     {
         Schema::create('party_rooms', function (Blueprint $table) {
             $table->id();
-            // // id del creador o del actual administrador
-            // $table->unsignedBigInteger('admin_id');
             $table->string('room_name', 100)->unique();
             $table->enum('visibility', ['public', 'private'])->default('public');
-            // foreign keys
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('users');
             $table->unsignedBigInteger('videogame_id');
             $table->foreign('videogame_id')->references('id')->on('videogames');
-
             $table->boolean('is_active')->default(true);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

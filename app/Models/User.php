@@ -37,16 +37,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    
-    public function party_rooms():HasMany
+
+    public function party_rooms(): HasMany
     {
-        return $this->hasMany(PartyRooms::class);
+        return $this->hasMany(PartyRoom::class);
     }
-    public function party_members():HasMany
+    public function party_members(): HasMany
     {
         return $this->hasMany(PartyMembers::class);
     }
-    public function messages():HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(Messages::class);
     }

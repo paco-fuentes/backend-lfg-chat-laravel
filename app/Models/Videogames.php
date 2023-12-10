@@ -20,8 +20,8 @@ class Videogames extends Model
         'is_active',
     ];
 
-    public function party_rooms():HasMany
+    public function party_rooms(): HasMany
     {
-        return $this->hasMany(PartyRooms::class);
+        return $this->hasMany(PartyRoom::class);
     }
 }

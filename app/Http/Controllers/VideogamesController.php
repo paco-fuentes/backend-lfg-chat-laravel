@@ -12,74 +12,70 @@ class VideogamesController extends Controller
 {
     public function getAllGames(Request $request)
     {
-       try {
-        $videogames=Videogames::query()->where('is_active', true)->get();
-        if($videogames->isEmpty()){
+        try {
+            $videogames = Videogames::query()->where('is_active', true)->get();
+            if ($videogames->isEmpty()) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => 'No videogames found'
+                    ],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Videogames found',
+                    'data' => $videogames
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'No videogames found'
+                    'message' => 'Error founding games'
                 ],
-                Response::HTTP_NOT_FOUND
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-        return response()->json(
-            [
-                'success' => true,
-                'message' => 'Videogames found',
-                'data' => $videogames
-            ],
-            Response::HTTP_OK
-        );
-       } catch (\Throwable $th) {
-        Log::error($th->getMessage());
-        
-        return response()->json(
-            [
-                'success' => false,
-                'message' => 'Error founding games'
-            ],
-            Response::HTTP_INTERNAL_SERVER_ERROR
-        );
-    
     }
-}
     public function getGameById(Request $request, $id)
-{
-    try {
-        $videogame=Videogames::query()->find($id);
+    {
+        try {
+            $videogame = Videogames::query()->find($id);
 
-        if(!$videogame){
+            if (!$videogame) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Videogame doesn't exist"
+                    ],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Videogame obtained",
+                    'data' => $videogame
+                ],
+                Response::HTTP_OK
+            );
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
             return response()->json(
                 [
                     'success' => false,
-                    'message' => "Videogame doesn't exist"
+                    'message' => 'Error founding game'
                 ],
-                Response::HTTP_NOT_FOUND
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-        
-        return response()->json(
-            [
-                'success' => true,
-                'message' => "Videogame obtained",
-                'data' => $videogame
-            ],
-            Response::HTTP_OK
-        );
-
-    }catch (\Throwable $th) {
-        Log::error($th->getMessage());
-        
-        return response()->json(
-            [
-                'success' => false,
-                'message' => 'Error founding game'
-            ],
-            Response::HTTP_INTERNAL_SERVER_ERROR
-        );
     }
 }
-    
-}
-

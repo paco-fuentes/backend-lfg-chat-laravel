@@ -38,7 +38,7 @@ class PartyRoom extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Messages::class);
+        return $this->hasMany(Message::class);
     }
 
     public function admins(): BelongsToMany

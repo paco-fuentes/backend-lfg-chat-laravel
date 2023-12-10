@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('party_members', function (Blueprint $table) {
             $table->id();
-            // foreign keys
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('party_id');
             $table->foreign('party_id')->references('id')->on('party_rooms');
-            // un usuario solo puede estar una vez en una sala
-            $table->unique(['user_id','party_id']);
-
+            $table->unique(['user_id', 'party_id']);
             $table->boolean('is_active')->default(true);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

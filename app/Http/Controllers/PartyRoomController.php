@@ -133,7 +133,7 @@ class PartyRoomController extends Controller
             }
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
-            Log::error($th->getTraceAsString()); 
+            Log::error($th->getTraceAsString());
 
             return response()->json(
                 [
@@ -144,37 +144,4 @@ class PartyRoomController extends Controller
             );
         }
     }
-
-    //     public function deletePartyMember(Request $request, $id)
-    //     {
-    //         try {
-    //            $userId = auth()->user()->id;
-
-    //            $partyMember = PartyMember::query()
-    //            ->where("id", $id)
-    //            ->where("user_id", $userId)
-    //            ->first();
-
-    //            $partyMember->delete();
-
-    //            return response()->json(
-    //             [
-    //                 "success" => true,
-    //                 "message" => "PartyMember deleted successfully",
-    //                 "data" => $partyMember
-    //             ],
-    //             Response::HTTP_OK
-    //         );
-    // } catch (\Throwable $th) {
-    //             Log::error($th->getMessage());
-
-    //             return response()->json(
-    //                 [
-    //                     "success" => false,
-    //                     "message" => "Error deleting PartyMember",
-    //                 ],
-    //                 Response::HTTP_INTERNAL_SERVER_ERROR
-    //             );
-    //         }
-    //     }
 }

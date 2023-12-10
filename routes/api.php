@@ -1,5 +1,4 @@
 <?php
-//faltan importaciones de los controladores una vez creados
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MessageController;
@@ -7,7 +6,6 @@ use App\Http\Controllers\PartyMemberController;
 use App\Http\Controllers\PartyRoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideogamesController;
-// use App\Http\Middleware\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +46,7 @@ Route::middleware("auth:sanctum")->delete('/user', [UserController::class, 'dele
 // VIDEOGAMES PUBLIC
 Route::get('/videogames', [VideogamesController::class, 'getAllGames']);
 Route::get('/videogames/{id}', [VideogamesController::class, 'getGameById']);
+
 // VIDEOGAMES WITH AUTH
 Route::middleware("auth:sanctum", "admin")->put('/videogames/{id}', [AdminController::class, 'updateVideogame']);
 Route::middleware("auth:sanctum", "admin")->post('/videogame', [AdminController::class, 'createVideogame']);
@@ -57,9 +56,6 @@ Route::middleware("auth:sanctum", "admin")->get('/users', [AdminController::clas
 // PARTY ROOMS
 Route::middleware("auth:sanctum")->post('/room', [PartyRoomController::class, 'createPartyRoom']);
 Route::middleware("auth:sanctum")->get('/partygames/{videogame_id}', [PartyRoomController::class, 'getPartyByVideogameId']);
-// revisar este delete, no sé a que hace referencia ...
-// Route::middleware("auth:sanctum")->delete('/partygames/{id}', [PartyRoomController::class, 'deletePartyRoom']);
-// nueva ruta ...
 Route::middleware("auth:sanctum")->delete('/partymember', [PartyRoomController::class, 'deletePartyMember']);
 Route::middleware("auth:sanctum", "admin")->get('/partyrooms', [AdminController::class, 'getAllPartyRoom']);
 
