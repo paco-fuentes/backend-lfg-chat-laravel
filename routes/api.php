@@ -70,3 +70,4 @@ Route::middleware("auth:sanctum")->post('/partymembers/leave/{party_id}', [Party
 Route::middleware("auth:sanctum")->post('/message', [MessageController::class, 'createMessage']);
 Route::middleware("auth:sanctum")->get('/message', [MessageController::class, 'chatRoom']);
 Route::middleware("auth:sanctum")->delete('/message/{id}', [MessageController::class, 'deleteMessage']);
+Route::middleware("auth:sanctum")->put('/message', [MessageController::class, 'updateMessage']);

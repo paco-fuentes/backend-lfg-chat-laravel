@@ -142,43 +142,47 @@ class MessageController extends Controller
         }
     }
 
-    public function updateMessage(Request $request, $id)
+    public function updateMessage(Request $request)
     {
         try {
-            $userId = auth()->user()->id;
-            $message = Message::query()
-                ->where('id', $id)
-                ->where('user_id', $userId)
-                ->first();
+           
+            $user = auth()->user();
+            $party_id = $request->input('party_id');
+            $message = $request->input('message');
+            $newMessage = $request->input('newMessage');
 
-           $newMessage = $request->input('message');
+            $Message = Message::query()->where("user_id", $user->id)->where("party_id", $party_id)->where("message", $message)->first();
 
-           $message->content = $newMessage;
-           $message->save();
+            if (!$Message) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Message not found"
+                    ],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+
+            if ($request->has("message")) {
+                $Message->message = $newMessage;
+            }
+
+            $Message->save();
 
             return response()->json(
                 [
                     "success" => true,
                     "message" => "Message updated",
-                    "data" => $message
+                    "data" => $Message
                 ],
                 Response::HTTP_OK
             );
-} catch (\Throwable $e) {
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Message not updated"
-                ],
-                Response::HTTP_NOT_FOUND
-            );
-        
-} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Error updating message"
+                    "message" => "Message not updated"
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
