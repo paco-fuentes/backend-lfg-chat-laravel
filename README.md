@@ -1,66 +1,291 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Backend for a LFG chat with Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<details>
+  <summary>Content 📝</summary>
+  <ol>
+    <li><a href="#objective">Objective</a></li>
+    <li><a href="#about-the-project">About the Project</a></li>
+    <li><a href="#deployment-🚀">Deployment</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#database-diagram">Database Diagram</a></li>
+    <li><a href="#local-installation">Installation</a></li>
+    <li><a href="#endpoints">Endpoints</a></li>
+    <li><a href="#future-features">Future Features</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-## About Laravel
+## Objetive
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The main objective of this project is the development of a backend chat application, with a group of three people collaborating on Git and written in PHP using the Laravel framework.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## About the Project
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+It involves creating a backend API for a 'looking for group' (LFG) chat, where users can create or search for chat rooms related to a game, manage them, or join as members.
 
-## Learning Laravel
+## Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Used stacks:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<div align="center">
+<a href="https://www.php.net/">
+    <img src= "https://img.shields.io/badge/php-7A86B8?style=for-the-badge&logo=php&logoColor=black"/>
+</a>
+<a href="https://laravel.com/">
+    <img src= "https://img.shields.io/badge/laravel-F13C2F?style=for-the-badge&logo=laravel&logoColor=white"/>
+</a>
+<a href="https://www.mysql.com/">
+    <img src= "https://img.shields.io/badge/mysql-3E6E93?style=for-the-badge&logo=mysql&logoColor=white"/>
+</a>
+<a href="https://git-scm.com/">
+    <img src= "https://img.shields.io/badge/git-F54D27?style=for-the-badge&logo=git&logoColor=white"/>
+</a>
+<a href="https://www.postman.com/">
+    <img src= "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"/>
+</a>
+ </div>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Database Diagram
 
-## Laravel Sponsors
+<img src="./public/db-image.png" align= "center"/>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Local Installation
 
-### Premium Partners
+1. Clone the repository and run the following command to install the necessary dependencies:
+   `$ composer i`
+2. Connect your repository to the database by following the instructions in the env.example file.
+3. Run migrations:
+   `$ php artisan migrate`
+4. Start server:
+   `$ php artisan serve`
+5. You can execute the endpoints using run in postman button bellow. You also can seed your database by running the sql tables on ./https-sql-seeders or by running this command:
+   `$ php artisane db:seed`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Run in Postman
 
-## Contributing
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/30593617-8d18e73f-6296-429a-ac31-5b4ec2a33b95?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D30593617-8d18e73f-6296-429a-ac31-5b4ec2a33b95%26entityType%3Dcollection%26workspaceId%3D1ed03365-3abe-4fb1-a48c-67e905761aa6)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## SQL Data
 
-## Code of Conduct
+Data has been added to populate the SQL tables with users, partyrooms, partymembers, videogames and messages.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+To login the users on this tables use password: 'Password1234&'
 
-## Security Vulnerabilities
+There is an admin user, login with admin@admin.com
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Endpoints
+
+<details>
+<summary>Endpoints</summary>
+
+-   HELTH-CHECK
+
+            GET http://localhost:8000/api
+
+-   GUEST
+
+    -   GET ALL VIDEOGAMES
+
+            GET http://localhost:8000/api/videogames/
+
+    -   GET VIDEOGAME BY ID
+
+            GET http://localhost:8000/api/videogames/:id
+
+    -   REGISTER
+
+            POST http://localhost:8000/api/register
+
+                body:
+
+                ```json
+                {
+                    "username": "Dani Ochando",
+                    "email": "david@tarazona.com",
+                    "password": "Password83&"
+
+                }
+                ```
+
+    -   LOGIN
+
+            POST http://localhost:8000/api/login
+
+                body:
+
+                ```json
+                {
+                    "email": "david@tarazona.com",
+                    "password": "Password83&"
+                }
+                ```
+
+
+-   ADMIN ENDPOINTS
+
+    -   CREATE VIDEOGAME
+
+            POST http://localhost:8000/api/videogame
+
+                body:
+
+                ```json
+                {
+                    "title": "World of Warcraft",
+                    "year": "2004",
+                    "img_url": "https://via.placeholder.com/640x480.png/0000bb?text=dolorr",
+                    "genre": "RPG",
+                    "is_active": 1
+
+                }
+                ```
+    -   UPDATE VIDEOGAME
+
+            PUT http://localhost:8000/api/videogame/:id
+
+                body:
+
+                ```json
+                {
+                    "title": "Doom",
+                    "year": "1994",
+                    "img_url": "https://via.placeholder.com/640x480.png/0000bb?text=dolores",
+                    "genre": "FPS",
+                    "is_active": 1
+                }
+                ```
+    -   DELETE VIDEOGAME
+
+            DELETE http://localhost:8000/api/videogame/:id
+
+    -   ADMIN GET ALL USERS
+
+            GET http://localhost:8000/api/users
+
+    -   ADMIN GET ALL PARTY ROOMS
+
+            GET http://localhost:8000/api/partyrooms
+
+-   USER ENDPOINTS
+
+    -   GET USER PROFILE
+
+            GET http://localhost:8000/api/profile
+
+    -   UPDATE USER PROFILE
+
+            PUT http://localhost:8000/api/update
+
+            body:
+
+                ```json
+                {
+                    "username": "miNuevoNombre"
+                }
+                ```
+    -   USER LOGOUT
+
+            POST http://localhost:8000/api/logout
+
+    -   USER CREATES A PARTY ROOM
+
+            POST http://localhost:8000/api/room
+
+            body:
+
+                ```json
+                {
+                "room_name": "room-de-juego-con-id-1",
+                "videogame_id": "1"
+                }
+                ```
+    -   GET PARTY ROOM BY VIDEOGAME
+
+            GET http://localhost:8000/api/partygames/:id
+
+    -   JOIN PARTY ROOM
+
+            POST http://localhost:8000/api/partymembers/join/:id
+
+    -   LEAVE PARTY ROOM
+
+            POST http://localhost:8000/api/partymembers/leave/:id
+
+    -   PARTY ROOM OWNER DELETES PARTY MEMBER
+
+            DELETE http://localhost:8000/api/partymember
+
+            body:
+
+                ```json
+                {
+                "partyRoomId": 1,
+                "partyMemberId": 2
+                }
+                ```
+    -   PARTY MEMBER POST A MESSAGE
+
+            POST http://localhost:8000/api/message
+
+            body:
+
+                ```json
+                {
+                "party_id":"1",
+                "message":"¡hola!"
+                }
+                ```
+    -   PARTY MEMBER GET ALL PARTY ROOM MESSAGES
+
+            GET http://localhost:8000/api/message
+
+            body:
+
+                ```json
+                {
+                "party_id":"1"
+                }
+                ```
+    -   PARTY MEMBER DELETE ITS OWN ROOM MESSAGES
+
+            DELETE http://localhost:8000/api/message/:id
+
+            body:
+
+                ```json
+                {
+                "party_id":"1"
+                }
+                ```
+    -   PARTY MEMBER UPDATE ITS OWN ROOM MESSAGES
+
+            PUT http://localhost:8000/api/message/
+
+            body:
+
+                ```json
+                {
+                "party_id": "1",
+                "message_id": "1",
+                "newMessage": "donde dije digo, digo Diego, y dígalo dígolo dícese lo dicho"
+                }
+
+</details>
+
+## Future Features
+
+[ ] Fix delete user conflicts with other table relations.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is under an MIT license.
+
+## Contact
+
+Cristian Pérez, Mery Rodriguez y Paco Fuentes. 2023
+
+<a href = "mailto:pacofuentes.work@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/paco-fuentes-805a40290/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
+</p>
