@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PartyMember;
 use App\Models\PartyRoom;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -93,4 +94,59 @@ class PartyRoomController extends Controller
             );
         }
     }
+
+    public function deletePartyRoom(Request $request, $id)
+    {
+        try {
+            $user = auth()->user();
+            $partyRoom = PartyRoom::query()->find($id);
+            $userPartyRoom = PartyMember::query()->where("party_id", $id)->first();
+
+            if (!$partyRoom) {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "PartyRoom not found"
+                    ],
+                    Response::HTTP_NOT_FOUND
+                );
+            }
+
+            if ($userPartyRoom->user_id === $user->id) {
+                $partyRoom->party_memberManyToMany()->detach($user->id);
+
+                PartyRoom::destroy($id);
+
+                return response()->json(
+                    [
+                        "success" => true,
+                        "message" => "PartyRoom deleted successfully"
+                    ],
+                    Response::HTTP_OK
+                );
+            } else {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You are not admin to this partyroom"
+                    ],
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Error deleting partyroom",
+                    "data" => $userPartyRoom
+
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }
+           
+
