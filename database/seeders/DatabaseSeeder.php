@@ -49,13 +49,28 @@ class DatabaseSeeder extends Seeder
         ]);
         
         {
-            DB::table('users')->insert([
+          $user = DB::table('users')->insert([
                 'username' => Str::random(10),
                 'email' => Str::random(10).'@gmail.com',
                 'password' => Hash::make('password'),
                 'role'=> 'admin'
             ]);
         }
-    }
+        {
+            DB::table('party_rooms')->insert([
+                'room_name' => Str::random(10),
+                //'admin_id' =>$user
+                //'videogame_id' =>$videogame
 
+            ]);
+        }
+        $game = DB::table('videogames')->insert(
+            [
+                'title' => Str::random(10),
+                'year' => Str::random(10),
+                'genre' => Str::random(10),
+            ]
+        );
+    }
+    
 };
