@@ -22,6 +22,6 @@ class PartyMember extends Model
 
     public function party_rooms(): BelongsTo
     {
-        return $this->belongsTo(PartyRooms::class);
+        return $this->belongsTo(PartyRoom::class, 'party_id');
     }
 }

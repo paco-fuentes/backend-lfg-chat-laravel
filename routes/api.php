@@ -57,8 +57,10 @@ Route::middleware("auth:sanctum", "admin")->get('/users', [AdminController::clas
 // PARTY ROOMS
 Route::middleware("auth:sanctum")->post('/room', [PartyRoomController::class, 'createPartyRoom']);
 Route::middleware("auth:sanctum")->get('/partygames/{videogame_id}', [PartyRoomController::class, 'getPartyByVideogameId']);
-// revisar delete...
-Route::middleware("auth:sanctum")->delete('/partygames/{id}', [PartyRoomController::class, 'deletePartyRoom']);
+// revisar este delete, no sé a que hace referencia ...
+// Route::middleware("auth:sanctum")->delete('/partygames/{id}', [PartyRoomController::class, 'deletePartyRoom']);
+// nueva ruta ...
+Route::middleware("auth:sanctum")->delete('/partymember', [PartyRoomController::class, 'deletePartyMember']);
 Route::middleware("auth:sanctum", "admin")->get('/partyrooms', [AdminController::class, 'getAllPartyRoom']);
 
 // PARTY MEMBERS
