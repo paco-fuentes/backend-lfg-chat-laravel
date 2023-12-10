@@ -143,49 +143,99 @@ class MessageController extends Controller
     }
 
     public function updateMessage(Request $request)
-    {
-        try {
-           
-            $user = auth()->user();
-            $party_id = $request->input('party_id');
-            $message = $request->input('message');
-            $newMessage = $request->input('newMessage');
+{
+    try {
+        $user = auth()->user();
+        $party_id = $request->input('party_id');
+        $messageId = $request->input('message_id'); // Nuevo campo para el ID del mensaje
+        $newMessage = $request->input('newMessage');
 
-            $Message = Message::query()->where("user_id", $user->id)->where("party_id", $party_id)->where("message", $message)->first();
+        $message = Message::query()
+            ->where("id", $messageId)
+            ->where("user_id", $user->id)
+            ->where("party_id", $party_id)
+            ->first();
 
-            if (!$Message) {
-                return response()->json(
-                    [
-                        "success" => false,
-                        "message" => "Message not found"
-                    ],
-                    Response::HTTP_NOT_FOUND
-                );
-            }
-
-            if ($request->has("message")) {
-                $Message->message = $newMessage;
-            }
-
-            $Message->save();
-
-            return response()->json(
-                [
-                    "success" => true,
-                    "message" => "Message updated",
-                    "data" => $Message
-                ],
-                Response::HTTP_OK
-            );
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+        if (!$message) {
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "Message not updated"
+                    "message" => "Message not found"
                 ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_NOT_FOUND
             );
         }
+
+        if ($request->has("newMessage")) {
+            $message->message = $newMessage;
+        }
+
+        $message->save();
+
+        return response()->json(
+            [
+                "success" => true,
+                "message" => "Message updated",
+                "data" => $message
+            ],
+            Response::HTTP_OK
+        );
+    } catch (\Throwable $th) {
+        Log::error($th->getMessage());
+        return response()->json(
+            [
+                "success" => false,
+                "message" => "Message not updated"
+            ],
+            Response::HTTP_INTERNAL_SERVER_ERROR
+        );
     }
+}
+
+    // public function updateMessage(Request $request)
+    // {
+    //     try {
+           
+    //         $user = auth()->user();
+    //         $party_id = $request->input('party_id');
+    //         $message = $request->input('message');
+    //         $newMessage = $request->input('newMessage');
+
+    //         $Message = Message::query()->where("user_id", $user->id)->where("party_id", $party_id)->where("message", $message)->first();
+
+    //         if (!$Message) {
+    //             return response()->json(
+    //                 [
+    //                     "success" => false,
+    //                     "message" => "Message not found"
+    //                 ],
+    //                 Response::HTTP_NOT_FOUND
+    //             );
+    //         }
+
+    //         if ($request->has("message")) {
+    //             $Message->message = $newMessage;
+    //         }
+
+    //         $Message->save();
+
+    //         return response()->json(
+    //             [
+    //                 "success" => true,
+    //                 "message" => "Message updated",
+    //                 "data" => $Message
+    //             ],
+    //             Response::HTTP_OK
+    //         );
+    //     } catch (\Throwable $th) {
+    //         Log::error($th->getMessage());
+    //         return response()->json(
+    //             [
+    //                 "success" => false,
+    //                 "message" => "Message not updated"
+    //             ],
+    //             Response::HTTP_INTERNAL_SERVER_ERROR
+    //         );
+    //     }
+    // }
 }
